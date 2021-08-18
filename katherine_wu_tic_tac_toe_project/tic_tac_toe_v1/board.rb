@@ -40,8 +40,8 @@ class Board
     end
 
     def win_diagonal?(mark)
-        left  = @grid.all?{|row| (0..2).any?{|i| row[i] == mark} }
-        right = @grid.all?{|row| (0..2).any?{|i| row[2-i] == mark} }
+        left  = @grid.all?{|row| (0..2).all?{|i| @grid[i][i] == mark} }
+        right = @grid.all?{|row| (0..2).all?{|i| @grid[i][2-i] == mark} }
         left || right
     end
 
