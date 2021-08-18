@@ -48,7 +48,10 @@ class Code
   end
 
   def num_near_matches(code_guess)
-    code_guess.pegs.select.with_index{|ch, i| @pegs.include?(ch) && ch != @pegs[i] }.count
+    pegs = @pegs.clone
+    code_guess.pegs.each{|peg| pegs.delete_at(pegs.index(peg)) if pegs.include?(peg)}
+    @pegs.length - pegs.length - num_exact_matches(code_guess)
+    # total matched - exact matches
   end
 
   def  ==(other_code)
